@@ -2,9 +2,7 @@ import { defineConfig, loadEnv } from "vite";
 import ViteReact from "@vitejs/plugin-react-refresh";
 import ViteReactJSX from "vite-react-jsx";
 import AutoImport from "unplugin-auto-import/vite";
-import SVGIcons from "vite-plugin-svg-icons";
-// https://iconify.design/
-import Icons from "unplugin-icons/vite";
+import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 import { resolve } from "path";
 
@@ -24,8 +22,7 @@ export default ({ mode }: { mode: string }) => {
         dts: "types/generated/auto-imports.d.ts",
         imports: ["react"],
       }),
-      Icons({ compiler: "jsx" }),
-      SVGIcons({
+      createSvgIconsPlugin({
         iconDirs: [resolve(process.cwd(), "src/assets/svg")],
         symbolId: "icon-[dir]-[name]",
       }),
@@ -37,16 +34,14 @@ export default ({ mode }: { mode: string }) => {
       hmr: true,
       fs: {
         strict: false,
-        // Allow serving files from one level up to the project root
-        // allow: ["./src/graphql/**/*.graphql"],
       },
-      // proxy: {
-      //   "/api": {
-      //     target: process.env.VITE_API_KEY,
-      //     changeOrigin: true,
-      //     autoRewrite: true,
-      //   },
-      // },
+      proxy: {
+        "/api": {
+          target: process.env.VITE_API_KEY,
+          changeOrigin: true,
+          autoRewrite: true,
+        },
+      },
       watch: {
         usePolling: true,
         useFsEvents: true,

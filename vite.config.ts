@@ -1,3 +1,5 @@
+/// <reference types="vitest" />
+
 import { defineConfig, loadEnv } from "vite";
 import ViteReact from "@vitejs/plugin-react-refresh";
 import ViteReactJSX from "vite-react-jsx";
@@ -6,7 +8,6 @@ import { createSvgIconsPlugin } from "vite-plugin-svg-icons";
 
 import { resolve } from "path";
 
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export default ({ mode }: { mode: string }) => {
   process.env = { ...process.env, ...loadEnv(mode, resolve(__dirname)) };
 
@@ -20,10 +21,10 @@ export default ({ mode }: { mode: string }) => {
           /\.[tj]sx?$/, // .ts, .tsx, .js, .jsx
         ],
         dts: "types/generated/auto-imports.d.ts",
-        imports: ["react"],
+        imports: ["react", "vitest"],
       }),
       createSvgIconsPlugin({
-        iconDirs: [resolve(process.cwd(), "src/assets/svg")],
+        iconDirs: [resolve(__dirname, "src/assets/svg")],
         symbolId: "icon-[dir]-[name]",
       }),
     ],
@@ -37,9 +38,10 @@ export default ({ mode }: { mode: string }) => {
       },
       proxy: {
         "/api": {
-          target: process.env.VITE_API_KEY,
+          target: process.env.VITE_API_URL,
           changeOrigin: true,
           autoRewrite: true,
+          rewrite: (path: string) => path.replace("/api", ""),
         },
       },
       watch: {
@@ -51,7 +53,14 @@ export default ({ mode }: { mode: string }) => {
       alias: {
         "#": resolve(__dirname, "public"),
         "@": resolve(__dirname, "src"),
+        "%": resolve(__dirname, "tests"),
+        "@types": resolve(__dirname, "types"),
       },
+    },
+    test: {
+      environment: "happy-dom",
+      globals: true,
+      setupFiles: ["tests/vitest.setup.ts"],
     },
     define: { "process.env": process.env },
   });

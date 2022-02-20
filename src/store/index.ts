@@ -1,11 +1,17 @@
 import { Action, configureStore, ThunkAction } from "@reduxjs/toolkit";
-import { reducer as counterReduced } from "@/store/counter";
+import { setupListeners } from "@reduxjs/toolkit/query";
+
+import userService from "@/services/user";
 
 const store = configureStore({
   reducer: {
-    counter: counterReduced,
+    [userService.reducerPath]: userService.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(userService.middleware),
 });
+
+setupListeners(store.dispatch);
 
 export default store;
 

@@ -12,13 +12,7 @@
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "typeRoots": ["./nodu_modules/@types", "./types"],
-    "types": [
-      "vite/client",
-      "node",
-      "@types/jest",
-      "@types/testing-library__jest-dom",
-      "@types/react"
-    ],
+    "types": ["node", "@types/react"],
     "isolatedModules": false,
     "noEmit": true,
     "jsxImportSource": "react",
@@ -26,7 +20,9 @@
     "baseUrl": ".",
     "paths": {
       "@types": ["types"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "#/*": ["public/*"],
+      "%/*": ["tests/*"],
     }
   },
   "include": [

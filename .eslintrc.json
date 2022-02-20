@@ -3,8 +3,7 @@
   "env": {
     "browser": true,
     "node": true,
-    "es6": true,
-    "jest": true
+    "es6": true
   },
   "settings": {
     "react": {
@@ -13,15 +12,15 @@
   },
   "extends": [
     "eslint:recommended",
-    "plugin:jest/recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
     "plugin:react/recommended",
     "plugin:react/jsx-runtime",
     "plugin:react-hooks/recommended",
+    "plugin:testing-library/react",
     "prettier"
   ],
-  "plugins": ["jest", "prettier", "react", "react-hooks", "@typescript-eslint"],
+  "plugins": ["prettier", "react", "react-hooks", "@typescript-eslint"],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "parser": "@typescript-eslint/parser",

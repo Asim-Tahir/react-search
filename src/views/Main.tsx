@@ -11,10 +11,14 @@ export default function Main(): React.ReactElement {
     searchableData,
     setSearchableData,
 
-    searchByJobTitle,
+    filterByJobTitle,
+    filterByArea,
+
     searchByName,
-    searchByArea,
     searchByCompany,
+
+    isSearched,
+    isFiltered,
   } = useContext(SearchContext.Context);
 
   const results = useFuse<User>(
@@ -23,8 +27,8 @@ export default function Main(): React.ReactElement {
       $or: [
         { $path: ["name"], $val: searchByName },
         { $path: ["company"], $val: searchByCompany },
-        { $path: ["job"], $val: searchByJobTitle },
-        { $path: ["area"], $val: searchByArea },
+        { $path: ["job"], $val: filterByJobTitle },
+        { $path: ["area"], $val: filterByArea },
       ],
     },
     {
@@ -43,8 +47,10 @@ export default function Main(): React.ReactElement {
       <div className="flex flex-col space-y-8 mx-24 my-12">
         {results.length > 0 ? (
           results.map(({ item }) => <UserCard key={item.id} user={item} />)
+        ) : isSearched || isFiltered ? (
+          <p>Is there such a user?</p>
         ) : (
-          <p>No Users Found</p>
+          <p className="text-slate-400">Type anything to search the User</p>
         )}
       </div>
     </main>

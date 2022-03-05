@@ -10,12 +10,13 @@ import type { User } from "@types";
 
 export interface ISearchContext {
   isSearched: boolean;
+  isFiltered: boolean;
 
-  searchByJobTitle: string;
-  setSearchByJobTitle: Dispatch<SetStateAction<string>>;
+  filterByJobTitle: string;
+  setFilterByJobTitle: Dispatch<SetStateAction<string>>;
 
-  searchByArea: string;
-  setSearchByArea: Dispatch<SetStateAction<string>>;
+  filterByArea: string;
+  setFilterByArea: Dispatch<SetStateAction<string>>;
 
   searchByName: string;
   setSearchByName: Dispatch<SetStateAction<string>>;
@@ -33,12 +34,13 @@ export interface ISearchProviderProps {
 
 const SearchContext = createContext<ISearchContext>({
   isSearched: false,
+  isFiltered: false,
 
-  searchByJobTitle: "",
-  setSearchByJobTitle: () => void {},
+  filterByJobTitle: "",
+  setFilterByJobTitle: () => void {},
 
-  searchByArea: "",
-  setSearchByArea: () => void {},
+  filterByArea: "",
+  setFilterByArea: () => void {},
 
   searchByName: "",
   setSearchByName: () => void {},
@@ -53,32 +55,33 @@ const SearchContext = createContext<ISearchContext>({
 function SearchProvider({
   children,
 }: ISearchProviderProps): React.ReactElement {
-  const [searchByJobTitle, setSearchByJobTitle] = useState<string>("");
-  const [searchByArea, setSearchByArea] = useState<string>("");
+  const [filterByJobTitle, setFilterByJobTitle] = useState<string>("");
+  const [filterByArea, setFilterByArea] = useState<string>("");
   const [searchByName, setSearchByName] = useState<string>("");
   const [searchByCompany, setSearchByCompany] = useState<string>("");
 
   const [searchableData, setSearchableData] = useState<Array<User>>([]);
 
   const isSearched = useMemo<boolean>(
-    () =>
-      !!searchByJobTitle ||
-      !!searchByArea ||
-      !!searchByName ||
-      !!searchByCompany,
-    [searchByJobTitle, searchByArea, searchByName, searchByCompany]
+    () => !!searchByName || !!searchByCompany,
+    [searchByName, searchByCompany]
+  );
+  const isFiltered = useMemo<boolean>(
+    () => !!filterByJobTitle || !!filterByArea,
+    [filterByJobTitle, filterByArea]
   );
 
   return (
     <SearchContext.Provider
       value={{
         isSearched,
+        isFiltered,
 
-        searchByJobTitle,
-        setSearchByJobTitle,
+        filterByJobTitle,
+        setFilterByJobTitle,
 
-        searchByArea,
-        setSearchByArea,
+        filterByArea,
+        setFilterByArea,
 
         searchByName,
         setSearchByName,

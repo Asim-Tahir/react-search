@@ -3,19 +3,20 @@ import { useAppSelector } from "@/store/hooks";
 import { areasSelector } from "@/store/search";
 
 export default function Aside(): React.ReactElement {
-  const { setSearchByJobTitle, setSearchByArea } = useContext(Search.Context);
+  const { setFilterByJobTitle, setFilterByArea } = useContext(Search.Context);
+
   const areas = useAppSelector((state) => areasSelector(state));
 
   function handleChangeJobTitleInput(
     e: React.ChangeEvent<HTMLInputElement>
   ): void {
-    setSearchByJobTitle(e.target.value);
+    setFilterByJobTitle(e.target.value);
   }
 
   function handleChangeAreaSelect(
     e: React.ChangeEvent<HTMLSelectElement>
   ): void {
-    setSearchByArea(e.target.value);
+    setFilterByArea(e.target.value);
   }
 
   return (

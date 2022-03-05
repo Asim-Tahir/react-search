@@ -20,4 +20,36 @@
   #root {
     @apply flex;
   }
+
+  button {
+    @apply px-6 py-2.5;
+    @apply bg-blue-600;
+    @apply text-white font-medium text-xs leading-tight;
+    @apply rounded shadow-md;
+    @apply hover:bg-blue-700 hover:shadow-lg;
+    @apply focus:bg-blue-700  focus:shadow-lg focus:outline-none focus:ring-0;
+    @apply active:bg-blue-800 active:shadow-lg;
+    @apply transition duration-150 ease-in-out;
+    @apply flex items-center justify-center;
+  }
+
+  select {
+    @apply block w-full mt-1 py-2 px-3;
+    @apply border border-gray-300;
+    @apply bg-white;
+    @apply rounded-md shadow-sm;
+    @apply focus:outline-none focus:ring-indigo-500 focus:border-indigo-500;
+    @apply sm:text-sm;
+  }
+
+  input[type="search"] {
+    @apply relative block;
+    @apply m-0 w-full max-w-xs h-min px-3 py-1.5;
+    @apply text-base font-normal text-gray-700;
+    @apply bg-white bg-clip-padding;
+    @apply border border-solid border-gray-300;
+    @apply rounded;
+    @apply transition ease-in-out;
+    @apply focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none;
+  }
 }

@@ -23,16 +23,18 @@ export default function Nav(): React.ReactElement {
     <nav className="flex justify-start space-x-8 bg-white border-b border-gray-200 col-start-3 col-span-full z-30 w-full px-3 py-3 lg:px-5 lg:pl-3 h-16">
       <input
         type="search"
+        name="name"
         placeholder="Name"
-        aria-labelledby="search-button"
+        title="Search by name"
         onChange={handleChangeNameInput}
       />
 
       <input
         type="search"
+        name="company"
         placeholder="Company - Autocomplete"
+        title="Search by company"
         list="companies"
-        aria-labelledby="search-button"
         onChange={handleChangeCompanyInput}
       />
 
@@ -42,7 +44,9 @@ export default function Nav(): React.ReactElement {
         ))}
       </datalist>
 
-      <button id="search-button">Search</button>
+      <button id="search-button" title="Search Button">
+        Search
+      </button>
     </nav>
   );
 }

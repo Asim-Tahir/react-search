@@ -12,7 +12,7 @@ function handleImageError(e: React.SyntheticEvent<HTMLImageElement>): void {
 
 export default function UserCard({ user }: UserCardProps): React.ReactElement {
   return (
-    <div key={user.id} className="flex space-x-4">
+    <article key={user.id} className="flex space-x-4">
       <img
         loading="lazy"
         className="w-20 h-20 object-contain"
@@ -21,11 +21,11 @@ export default function UserCard({ user }: UserCardProps): React.ReactElement {
         onError={handleImageError}
       />
 
-      <div className="flex flex-col space-y-1">
+      <p className="flex flex-col space-y-1">
         <span title="User name">{user.name}</span>
         <span title="User company">{user.company}</span>
         <span title="User Job">{user.job}</span>
-      </div>
-    </div>
+      </p>
+    </article>
   );
 }

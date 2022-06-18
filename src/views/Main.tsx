@@ -43,16 +43,17 @@ export default function Main(): React.ReactElement {
   }, [isLoading, error, data, setSearchableData]);
 
   return (
-    <main className="relative overflow-y-auto h-full w-full">
-      <div className="flex flex-col space-y-8 mx-24 my-12">
-        {results.length > 0 ? (
-          results.map(({ item }) => <UserCard key={item.id} user={item} />)
-        ) : isSearched || isFiltered ? (
-          <p>Is there such a user?</p>
-        ) : (
-          <p className="text-slate-400">Type anything to search the User</p>
-        )}
-      </div>
+    <main
+      role="feed"
+      className="relative overflow-y-auto h-full flex flex-col space-y-8 mx-24 my-12"
+    >
+      {results.length > 0 ? (
+        results.map(({ item }) => <UserCard key={item.id} user={item} />)
+      ) : isSearched || isFiltered ? (
+        <p>Is there such a user?</p>
+      ) : (
+        <p className="text-slate-400">Type anything to search the User</p>
+      )}
     </main>
   );
 }
